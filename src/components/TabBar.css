@@ -1,0 +1,33 @@
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;  /* 增加内边距 */
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  height: 80px;  /* 设置固定高度 */
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;  /* 增大文字大小 */
+  color: #666;
+}
+
+.tab-item .anticon {
+  font-size: 32px;  /* 增大图标大小 */
+  margin-bottom: 8px;  /* 增加图标和文字的间距 */
+}
+
+.tab-item.active {
+  color: #ffd666;
+}
+
+.active-icon {
+  color: #ffd666;
+}
