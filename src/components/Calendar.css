@@ -113,22 +113,72 @@
 .month-selector {
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 8px 16px;
+  background: #f5f5f5;
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 24px;
+  transition: all 0.3s;
 }
 
-/* 移除之前的 DatePicker 相关样式 */
-.month-selector .ant-picker,
-.month-picker-popup {
-  display: none;
+.month-selector:hover {
+  background: #e6e6e6;
 }
-.calendar-header {
+
+.month-selector .down-arrow {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.header-right {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.today-button {
+  padding: 4px 12px;
+  border: 1px solid #1890ff;
+  border-radius: 15px;
+  background: white;
+  color: #1890ff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.today-button:hover {
+  background: #1890ff;
+  color: white;
+}
+
+.calendar-header {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 16px;
+  position: relative;
+}
+
+.month-selector {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
 }
 
 .calendar-header .anticon {

@@ -208,6 +208,29 @@ const Calendar = () => {
     setStartY(e.touches[0].clientY);
   };
 
+  // 添加回到今天的处理函数
+const handleBackToday = () => {
+    const now = moment();
+    setSelectedDate(now);
+    setDisplayWeekStart(now.clone().startOf('week'));
+    const lunar = Lunar.fromDate(now.toDate());
+    setLunarInfo({
+      yearInChinese: lunar.getYearInChinese() + '年',
+      monthInChinese: lunar.getMonthInChinese() + '月',
+      dayInChinese: lunar.getDayInChinese(),
+      ganZhi: `${lunar.getYearInGanZhi()}年   ${lunar.getMonthInGanZhi()}月   ${lunar.getDayInGanZhi()}日`,
+      festivals: lunar.getFestivals(),
+      jieQi: lunar.getJieQi(),
+      suitable: [lunar.getDayYi()],
+      avoid: [lunar.getDayJi()],
+      godDirections: {
+        xi: lunar.getDayPositionXiDesc(),
+        cai: lunar.getDayPositionCaiDesc(),
+        fu: lunar.getDayPositionFuDesc(),
+      },
+      solarInfo: lunar.getSolar().getXingZuo()
+    });
+  };
  
 // 修改触摸滑动处理函数
 const handleTouchMove = (e) => {
@@ -229,20 +252,23 @@ const handleTouchMove = (e) => {
   return (
     <ConfigProvider locale={zhCN}>
       <div className="calendar">
-        <div className="calendar-header">
-          <LeftOutlined onClick={handlePrevMonth} />
-          <div className="month-selector" onClick={() => {
+      <div className="calendar-header">
+        <LeftOutlined onClick={handlePrevMonth} />
+        <div className="month-selector" onClick={() => {
             Picker.prompt({
-              columns: [years, months],
-              value: [selectedDate.year(), selectedDate.month()],
-              onConfirm: handleMonthSelect
+            columns: [years, months],
+            value: [selectedDate.year(), selectedDate.month()],
+            onConfirm: handleMonthSelect
             });
-          }}>
+        }}>
             <span>{selectedDate?.format('YYYY年M月') || moment().format('YYYY年M月')}</span>
-          </div>
-          {/* <button className="lunar-button">显示整月</button> */}
-          <RightOutlined onClick={handleNextMonth} />
+            <span className="down-arrow">▼</span>
         </div>
+        <div className="header-right">
+            <button className="today-button" onClick={handleBackToday}>今日</button>
+            <RightOutlined onClick={handleNextMonth} />
+        </div>
+      </div>
         <div className="calendar-week-container">
           <div className="weekday-headers">
             {['周日', '周一', '周二', '周三', '周四', '周五', '周六'].map(day => (
