@@ -169,10 +169,9 @@ const Calendar = () => {
   }));
 
   const handleMonthSelect = (values) => {
-    const currentDay = selectedDate.date(); // 获取当前选中的日期
+    const currentDay = selectedDate.date();
     const newDate = moment().year(values[0]).month(values[1]);
     
-    // 检查新月份是否有当前日期，如果没有则选择该月1号
     const daysInMonth = newDate.daysInMonth();
     if (currentDay > daysInMonth) {
       newDate.date(1);
@@ -183,7 +182,7 @@ const Calendar = () => {
     setSelectedDate(newDate);
     setDisplayWeekStart(newDate.clone().startOf('week'));
     
-    // 更新农历信息
+    // 更新农历信息，添加缺失的属性
     const lunar = Lunar.fromDate(newDate.toDate());
     setLunarInfo({
       yearInChinese: lunar.getYearInChinese() + '年',
@@ -193,7 +192,13 @@ const Calendar = () => {
       festivals: lunar.getFestivals(),
       jieQi: lunar.getJieQi(),
       suitable: [lunar.getDayYi()],
-      avoid: [lunar.getDayJi()]
+      avoid: [lunar.getDayJi()],
+      godDirections: {
+        xi: lunar.getDayPositionXiDesc(),
+        cai: lunar.getDayPositionCaiDesc(),
+        fu: lunar.getDayPositionFuDesc(),
+      },
+      solarInfo: lunar.getSolar().getXingZuo()
     });
   };
 
