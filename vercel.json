@@ -6,8 +6,13 @@
       "use": "@vercel/node",
       "config": {
         "nodeVersion": "18.x",
-        "npmVersion": "9.x"
+        "npmVersion": "9.x",
+        "distDir": "build"
       }
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
+
 }
