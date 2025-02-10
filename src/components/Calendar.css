@@ -1,8 +1,94 @@
-:root:root {
+/* :root:root {
     --adm-font-size-main: 20px;
     --adm-font-size-7: 20px;
     --adm-font-size-6: 20px;
+  } */
+  
+  /* .adm-picker-view-column {
+    font-size: 20px !important;
   }
+  
+  .adm-picker-header {
+    font-size: 18px;
+  }
+  
+  .adm-picker-header-button {
+    font-size: 18px !important;
+  } */
+  
+.calendar {
+  padding: 16px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  flex-shrink: 0;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1px;
+  background: #fff;
+  height: 250px;  /* 增加整体高度 */
+  overflow-y: hidden;
+  touch-action: pan-y;
+}
+
+.weekday-header {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 16px;  /* 减小周标题字号 */
+  color: #666;
+}
+
+.weekday-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  position: relative;
+  height: 120px;  /* 减小日期项高度 */
+}
+
+.weekday-icon {
+  font-size: 24px;  /* 减小图标尺寸 */
+  color: #333;
+}
+
+.calendar-info p {
+  font-size: 18px;  /* 减小信息区域字号 */
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.god-positions {
+  font-size: 16px;  /* 减小神位字号 */
+  padding: 8px;
+}
+
+/* Picker 相关样式调整 */
+:root:root {
+  --adm-font-size-main: 14px;
+  --adm-font-size-7: 16px;
+  --adm-font-size-6: 16px;
+}
+
+.adm-picker-view-column {
+  font-size: 16px !important;
+}
+
+.adm-picker-header {
+  font-size: 16px;
+}
+
+.adm-picker-header-button {
+  font-size: 16px !important;
+}
   
   .adm-picker-view-column {
     font-size: 20px !important;
@@ -25,39 +111,6 @@
 
 .calendar-header {
   flex-shrink: 0;
-}
-
-.calendar-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1px;
-  background: #fff;
-  height: 400px;  /* 增加整体高度 */
-  overflow-y: hidden;
-  touch-action: pan-y;
-}
-
-.weekday-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 4px;
-  height: 200px;  /* 增加单个日期项高度 */
-  background: #fff;
-}
-
-.weekday-date {
-  font-size: 32px;  /* 增大日期字号 */
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-
-.weekday-lunar {
-  font-size: 16px;  /* 增大农历字号 */
-  color: #666;
-  margin-bottom: 12px;
 }
 
 .weekday-icon {
@@ -110,16 +163,6 @@
   text-align: center;
 }
 
-.month-selector {
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  background: #f5f5f5;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
 .month-selector:hover {
   background: #e6e6e6;
 }
@@ -137,12 +180,12 @@
 }
 
 .today-button {
-  padding: 4px 12px;
+  padding: 4px 10px;
   border: 1px solid #1890ff;
   border-radius: 15px;
   background: white;
   color: #1890ff;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -166,7 +209,7 @@
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: 6px 10px;
   background: #f5f5f5;
   border-radius: 20px;
   cursor: pointer;
@@ -201,7 +244,7 @@
 
 .calendar-week-container {
   position: relative;
-  height: 360px;
+  height: 300px;
   background: #fff;
   border-bottom: 1px solid #eee;
 }
@@ -219,34 +262,23 @@
   flex: 1;
   text-align: center;
   padding: 12px 0;
-  font-size: 24px;
+  font-size: 16px;
   color: #666;
 }
 
-.calendar-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  overflow-y: auto;
-  height: calc(100% - 44px);
-}
+
 
 .weekday-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 4px;
+  /* padding: 10px 4px; */
   position: relative;
-  height: 150px;
-}
-
-.weekday-date {
-  font-size: 30px;
-  margin-bottom: 8px;
+  height: 120px;
 }
 
 .weekday-lunar {
-  font-size: 20px;
+  font-size: 15px;
   color: #666;
   margin-bottom: 8px;
 }
@@ -271,10 +303,10 @@
 .weekday-item.current .weekday-icon {
   color: #000;
 }
-.weekday-item {
+/* .weekday-item {
   cursor: pointer;
   transition: all 0.3s ease;
-}
+} */
 
 .weekday-item:not(.current):hover {
   background-color: rgba(255, 214, 102, 0.1);
@@ -289,12 +321,12 @@
 }
 
 .calendar-info {
-  padding: 20px;
+  /* padding: 20px; */
   text-align: center;
 }
 
 .calendar-info p {
-  font-size: 24px;
+  font-size: 14px;
   line-height: 1.8;
   margin: 12px 0;
 }
@@ -338,7 +370,7 @@
 }
 .calendar-info .xingzuo {
   color: #722ed1;
-  font-size: 18px;
+  font-size: 14px;
   padding: 8px;
   background: linear-gradient(to right, #f9f0ff, #fff);
   border-radius: 4px;
