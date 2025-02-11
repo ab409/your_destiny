@@ -65,10 +65,12 @@ const Home = () => {
   return (
     <div className="home">
       {getCurrentComponent()}
-      <div className="bottom-buttons">
-        <button className="fortune-button">普通卦</button>
-        <button className="fortune-button special">三才卦</button>
-      </div>
+      {activeTab === 'calendar' && (
+        <div className="bottom-buttons">
+          <button className="fortune-button">普通卦</button>
+          <button className="fortune-button special">三才卦</button>
+        </div>
+      )}
       <TabBar items={tabs} activeKey={activeTab} onChange={handleTabChange} />
     </div>
   );

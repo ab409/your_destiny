@@ -8,14 +8,14 @@
   padding: 12px 0;  /* 增加内边距 */
   background-color: #fff;
   border-top: 1px solid #eee;
-  height: 80px;  /* 设置固定高度 */
+  height: 70px;  /* 设置固定高度 */
 }
 
 .tab-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 16px;  /* 增大文字大小 */
+  font-size: 12px;  /* 增大文字大小 */
   color: #666;
 }
 

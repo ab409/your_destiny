@@ -33,7 +33,7 @@
   grid-template-rows: repeat(2, 1fr);
   gap: 1px;
   background: #fff;
-  height: 250px;  /* 增加整体高度 */
+  height: 220px;  /* 增加整体高度 */
   overflow-y: hidden;
   touch-action: pan-y;
 }
@@ -111,11 +111,6 @@
 
 .calendar-header {
   flex-shrink: 0;
-}
-
-.weekday-icon {
-  font-size: 36px;  /* 增大图标尺寸 */
-  color: #333;
 }
 
 .weekday-name {
@@ -244,7 +239,6 @@
 
 .calendar-week-container {
   position: relative;
-  height: 300px;
   background: #fff;
   border-bottom: 1px solid #eee;
 }
@@ -281,11 +275,6 @@
   font-size: 15px;
   color: #666;
   margin-bottom: 8px;
-}
-
-.weekday-icon {
-  font-size: 36px;
-  color: #333;
 }
 
 .weekday-icon.future {
