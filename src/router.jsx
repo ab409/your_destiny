@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
+import Chat from './pages/Chat';
 import CalendarTab from './pages/tabs/Calendar';
 import AIAssistantTab from './pages/tabs/AIAssistant';
 import YiJingTab from './pages/tabs/YiJing';
@@ -31,5 +32,9 @@ export const router = createBrowserRouter([
         element: <SettingsTab />,
       },
     ],
+  },
+  {
+    path: '/chat/:assistantId',
+    element: <Chat />,
   },
 ]);
