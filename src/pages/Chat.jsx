@@ -18,7 +18,7 @@ const Chat = () => {
 
     useEffect(() => {
         // 连接 WebSocket
-        wsRef.current = new WebSocket('ws://your-server-url/chat');
+        wsRef.current = new WebSocket('wss://your-server-url/chat');
         
         wsRef.current.onmessage = (event) => {
           const response = JSON.parse(event.data);
