@@ -18,16 +18,30 @@ const Chat = () => {
 
     useEffect(() => {
         // 连接 WebSocket
-        wsRef.current = new WebSocket('wss://your-server-url/chat');
+        wsRef.current = new WebSocket('ws://localhost:8000/ws');
         
         wsRef.current.onmessage = (event) => {
-          const response = JSON.parse(event.data);
-          setMessages(prev => [...prev, {
-            id: Date.now(),
-            text: response.message,
-            type: 'assistant'
-          }]);
-          setIsThinking(false);
+          if (event.data === '[DONE]') {
+            setIsThinking(false);
+          } else {
+            setMessages(prev => {
+              const lastMessage = prev[prev.length - 1];
+              if (lastMessage && lastMessage.type === 'assistant') {
+                // 更新最后一条消息的内容
+                return [
+                  ...prev.slice(0, -1),
+                  { ...lastMessage, text: lastMessage.text + event.data }
+                ];
+              } else {
+                // 创建新的助手消息
+                return [...prev, {
+                  id: Date.now(),
+                  text: event.data,
+                  type: 'assistant'
+                }];
+              }
+            });
+          }
         };
     
         return () => {
@@ -35,27 +49,38 @@ const Chat = () => {
             wsRef.current.close();
           }
         };
-      }, []);
+    }, []);
 
-      const handleSend = () => {
-        if (!inputText.trim() || isThinking) return;
-        
-        const userMessage = {
-          id: Date.now(),
-          text: inputText,
-          type: 'user'
-        };
-        
-        setMessages(prev => [...prev, userMessage]);
-        setInputText('');
-        setIsThinking(true);
-    
-        // 发送消息到服务器
-        wsRef.current.send(JSON.stringify({
-          message: inputText,
-          assistantId: parseInt(assistantId)
-        }));
+    const handleSend = () => {
+      if (!inputText.trim() || isThinking) return;
+      
+      const userMessage = {
+        id: Date.now(),
+        text: inputText,
+        type: 'user'
       };
+      
+      setMessages(prev => [...prev, userMessage]);
+      setInputText('');
+      setIsThinking(true);
+  
+      // 构造对话历史
+      const conversationHistory = messages.map(msg => ({
+        role: msg.type === 'user' ? 'user' : 'assistant',
+        content: msg.text
+      }));
+
+      // 添加当前用户消息
+      conversationHistory.push({
+        role: 'user',
+        content: inputText
+      });
+  
+      wsRef.current.send(JSON.stringify({
+        messages: conversationHistory,
+        assistantId: parseInt(assistantId)
+      }));
+    };
     
 
   const handleBack = () => {
