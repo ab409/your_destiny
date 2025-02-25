@@ -21,8 +21,16 @@ const Chat = () => {
       const savedMessages = localStorage.getItem(`chat_history_${assistantId}`);
       if (savedMessages) {
         setMessages(JSON.parse(savedMessages));
+      } else if (assistant) {
+        // 首次进入，添加自我介绍
+        const introMessage = {
+          id: Date.now(),
+          text: `我是${assistant.name}，${assistant.description}`,
+          type: 'assistant'
+        };
+        setMessages([introMessage]);
       }
-    }, [assistantId]);
+    }, [assistantId, assistant]);
 
     // 保存消息到 localStorage
     useEffect(() => {
@@ -38,6 +46,7 @@ const Chat = () => {
 
     useEffect(() => {
         // 连接 WebSocket
+        // wsRef.current = new WebSocket('wss://1.94.209.176/ws');
         wsRef.current = new WebSocket('ws://1.94.209.176/ws');
         
         wsRef.current.onmessage = (event) => {
