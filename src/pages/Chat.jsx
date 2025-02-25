@@ -16,9 +16,29 @@ const Chat = () => {
     
     const assistant = assistants.find(a => a.id === parseInt(assistantId));
 
+    // 从 localStorage 加载历史记录
+    useEffect(() => {
+      const savedMessages = localStorage.getItem(`chat_history_${assistantId}`);
+      if (savedMessages) {
+        setMessages(JSON.parse(savedMessages));
+      }
+    }, [assistantId]);
+
+    // 保存消息到 localStorage
+    useEffect(() => {
+      if (messages.length > 0) {
+        localStorage.setItem(`chat_history_${assistantId}`, JSON.stringify(messages));
+      }
+    }, [messages, assistantId]);
+
+    const handleClearHistory = () => {
+      localStorage.removeItem(`chat_history_${assistantId}`);
+      setMessages([]);
+    };
+
     useEffect(() => {
         // 连接 WebSocket
-        wsRef.current = new WebSocket('ws://localhost:8000/ws');
+        wsRef.current = new WebSocket('ws://1.94.209.176/ws');
         
         wsRef.current.onmessage = (event) => {
           if (event.data === '[DONE]') {
@@ -97,7 +117,12 @@ const Chat = () => {
       <div className="chat-header">
         <LeftOutlined onClick={handleBack} />
         <span>{assistant.name}</span>
-        <QuestionCircleOutlined onClick={() => setIsHelpVisible(true)} />
+        <div className="header-right">
+          <button className="clear-button" onClick={handleClearHistory}>
+            清除历史
+          </button>
+          <QuestionCircleOutlined onClick={() => setIsHelpVisible(true)} />
+        </div>
       </div>
       <Modal
         title={assistant.name}
